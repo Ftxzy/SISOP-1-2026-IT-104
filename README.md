@@ -690,6 +690,9 @@ Tagihan Log
 
 <img width="1005" height="387" alt="image" src="https://github.com/user-attachments/assets/8ab37fa4-0fe3-4b8f-b248-8bda7041de4f" />
 
+### Kendala
+tidak ada kendala
+
 
 
 
