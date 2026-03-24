@@ -96,3 +96,50 @@ dan opsi selain a/b/c/d/e akan mengeluarkan echo seperti itu. esac untuk keluar 
 ## Soal 2
 
 ### Penjelasan
+
+langkah pertama adalah download peta-ekspedisi-amba.pdf dan simpan ke directory ekspedisi
+
+dengan cat peta-ekspedisi-amba.pdf (concatenate), bisa dibedah isi file tersebut dan  akhirnya mendapatkan link https://github.com/pocongcyber77/peta-gunung-kawi.git dan akhirnya menemukan gsxtrack.json dan didownload, masukkan ke repo berisi data koordinat.
+
+dari situ diminta untuk memasukkan informasi seperti id, site_name(x), latitude, longitude dimasukkan ke file titik-penting.txt menggunakan shell scripting dengan nama file parserkoordinat.sh
+
+### Code
+
+```bash
+#!/bin/bash
+
+INPUT="gsxtrack.json"
+OUTPUT="titik-penting.txt"
+
+echo "id,site_name,latitude,longitude" > "$OUTPUT"
+```
+mendeklarasi input dari data awal dan output ke titik-penting.txt
+memasukan ``` id,site_name,latitude,longitude ``` kepada output untuk header
+
+```bash
+awk '
+/"id":/ && /"node_/ {
+    gsub(/.*"id": "/,""); gsub(/",.*/,""); id=$0
+}
+```
+menggunakan awk untuk mencari id, gsub untuk menghapus/substitusi string "id: " dan menghapus apapun setelah koma, id=$0 artinya id mempunyai nilai apapun yang didapat dari line tersebut yang dibantu oleh awk
+
+```bash
+/"site_name":/ {
+    gsub(/.*"site_name": "/,""); gsub(/",.*/,""); site=$0
+}
+/"latitude":/ {
+    gsub(/.*"latitude": /,""); gsub(/,.*/,""); lat=$0
+}
+/"longitude":/ {
+    gsub(/.*"longitude": /,""); gsub(/,.*/,""); lon=$0
+    print id","site","lat","lon
+```
+logika yang sama untuk variabel lainnya, akhirnya akan di print dalam urutan id, site, lat, lon.
+
+```bash
+}' "$INPUT" >> "$OUTPUT"
+
+echo "Selesai transfer woiiiighhhhhhhhhhhh"
+```
+output dari awk tersebut di transfer dari nilai %input ke %output
