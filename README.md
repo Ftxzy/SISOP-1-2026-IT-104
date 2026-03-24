@@ -169,7 +169,7 @@ END {
 
 echo "Berhasiiiiil"
 ```
-dengan rumus yang didapat, kita dapat hanya membaca line 2, dan 4 karena id 1 dan 2 mempunyai lat sama, sedangkan 3 4, lon sama dan bisa mendeklarasikan id 1 dan dua mempunyai x dan y berbeda
+dengan rumus yang didapat, kita boleh hanya membaca line 2 dan 4 karena id 1 dan 2 mempunyai lat sama, sedangkan 3 dan 4 mempunyai lon yang sama. kita bisa mendeklarasikan id dua dan empat menjadi x1 y1 dan x2 y2 
 yang akhirnya akan di transfer outputnya ke posisipusaka.txt
 
 ### Output
