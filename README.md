@@ -665,17 +665,19 @@ done
 
 7. CRON
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/4b111831-305d-4fd7-84fa-1394a033219c" />
+
 Lihat Jadwal aktif
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/80e4e197-c271-4d46-bbcb-e9788c68400a" />
+
 Daftar jadwal baru
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/9db3269a-3758-41a4-ac23-b1462abc4a92" />
+
 Hapus Jadwal
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/0da87bfe-aeaf-4fde-a3d7-227a9fd137fc" />
 
 
 Tagihan Log
-
-<img width="1005" height="387" alt="image" src="https://github.com/user-attachments/assets/8ab37fa4-0fe3-4b8f-b248-8bda7041de4f" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/8ab37fa4-0fe3-4b8f-b248-8bda7041de4f" />
 
 ### Kendala
 tidak ada kendala
