@@ -10,7 +10,8 @@ Langkah pertama download data file passenger.csv
 
 setelah itu memastikan berapa penumpang kereta 
 
-``` echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
+```bash
+echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
 
 read -p "Pilih pilihan a/b/c/d/e: " answer
 
