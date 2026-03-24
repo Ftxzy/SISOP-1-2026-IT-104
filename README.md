@@ -347,6 +347,222 @@ hapus_penghuni() {
 ```
 Hapus penghuni. menghapus penghuni dengan input nama, kemudian ditaruh ke file ```sampah/history_hapus.csv``` dengan tambahan tanggal dihapusnya dengan metode memindahkan penghuni yang akan dihapus ke history file terlebih dahulu. setelah itu, membuat ulang file data csv dengan pengecualian nama yang dihapus menggunakan metode rewrite ke file temporary dan overwrite yang di file temporary tersebut balik ke file utama data_file.
 
+```bash
+tampilkan_penghuni() {
+    clear
+    echo "=============================================="
+    echo "       DAFTAR PENGHUNI"
+    echo "=============================================="
+
+    # cek ada data atau enggak
+    if [ $(awk 'END {print NR}' "$DATA_FILE") -le 1 ]; then
+        echo -e "\n  [!] Belum ada data penghuni."
+        return
+    fi
+
+    awk -F',' '
+    NR==1 { next }   # skip header
+    {
+        printf "  %-20s %-8s %-15s %-12s %s\n", $1, $2, $3, $4, $5
+    }
+    ' "$DATA_FILE"
+}
+```
+Menampilkan penghuni. menggunakan printf agar bisa memakai format specifier seperti %-20s artinya 
+- ```-``` merupakan alignment, dimana text yang akan dimunculkan nantinya di bagian kiri
+- ```20``` merupakan berapa spasi yang akan diberikan
+- ```s``` jenis yang di print (string)
 
 
+```bash
+update_status() {
+    clear
+    echo "=============================================="
+    echo "       UPDATE STATUS PENGHUNI"
+    echo "=============================================="
 
+    echo -n "Nama penghuni : "
+    read nama_update
+
+    # cek penghuni ada atau enggak
+    hasil=$(awk -F',' -v n="$nama_update" 'NR>1 && $1==n' "$DATA_FILE")
+    if [ -z "$hasil" ]; then
+        echo -e "\n  [!] Penghuni '$nama_update' tidak ditemukan."
+        return
+    fi
+
+    # tampil status sekarang
+    status_sekarang=$(awk -F',' -v n="$nama_update" 'NR>1 && $1==n {print $5}' "$DATA_FILE")
+    echo -e "\n  Status sekarang : $status_sekarang"
+
+    # input status baru
+    while true; do
+        echo -n "  Status baru [aktif/menunggak] : "
+        read status_baru
+        status_baru=$(echo "$status_baru" | tr '[:upper:]' '[:lower:]')
+
+        if [ "$status_baru" != "aktif" ] && [ "$status_baru" != "menunggak" ]; then
+            echo "  [!] Status harus 'aktif' atau 'menunggak'. Coba lagi."
+            continue
+        fi
+
+        break
+    done
+
+    # OFS="," biar CSV ga rusak pas kolom diubah
+    awk -F',' -v n="$nama_update" -v s="$status_baru" '
+    BEGIN { OFS="," }
+    NR==1 || $1!=n { print }
+    $1==n { $5=s; print }
+    ' "$DATA_FILE" > tmpfile.csv && mv tmpfile.csv "$DATA_FILE"
+
+    echo -e "\n  [OK] Status '$nama_update' berhasil diubah ke '$status_baru'."
+}
+```
+Mengupdate status penghuni. dengan formatting case sensitive di ```status_baru=$(echo "$status_baru" | tr '[:upper:]' '[:lower:]')``` yang akan mentranslatekan semua uppercase menjadi lowercase.
+#### Notes:
+- jika -F adalah format dengan cara bagaimana awk membaca dan memisah kolom sebuah file, format untuk outputnya merupakan OFS (output field seperator)
+- cara mengubah status adalah dengan cara yang sama sebelumnya (tmpfile)
+
+```bash
+LAPORAN_FILE="rekap/laporan_bulanan.txt"
+
+if [ ! -f "$LAPORAN_FILE" ]; then
+    mkdir -p rekap
+fi
+
+laporan_keuangan() {
+    clear
+    echo "=============================================="
+    echo "       LAPORAN KEUANGAN"
+    echo "=============================================="
+
+    # hitung total aktif dan menunggak
+    awk -F',' '
+    NR>1 {
+        if ($5 == "aktif") total_aktif += $3
+        else if ($5 == "menunggak") total_menunggak += $3
+    }
+    END {
+        print "=============================================="
+        print "  LAPORAN KEUANGAN ASRAMA"
+        print "=============================================="
+        print "  Total pemasukan (aktif)    : Rp " total_aktif
+        print "  Total menunggak            : Rp " total_menunggak
+        print "=============================================="
+    }
+    ' "$DATA_FILE" | tee "$LAPORAN_FILE"   # tee: cetak + simpan sekaligus
+
+    echo -e "\n  [OK] Laporan disimpan ke $LAPORAN_FILE."
+```
+Laporan keuangan, dipisahkan dari yang aktif dan menunggak
+#### Notes:
+- tee = meng Output ke terminal dan simpan ke laporan_file
+
+### Cron Job
+
+```bash
+SCRIPT_PATH=$(realpath "$0")   # cron butuh path absolut
+CRON_TAG="# dorm-tagihan-reminder"   # tag penanda cron job kita
+```
+- realpath $0 agar cron mengetahui path absolut dari script yang kita pakai
+- cron_tag agar cron script ini mempunyai tanda spesifik dan tidak tercampur oleh cron lainnya
+
+
+```bash
+if [ "$1" = "--check-tagihan" ]; then
+    LOG_DIR="$(dirname "$(realpath "$0")")/log"
+    LOG_FILE="$LOG_DIR/tagihan.log"
+    mkdir -p "$LOG_DIR"
+
+    TIMESTAMP=$(date "+%Y-%m-%d %H:%M")
+
+    awk -F',' -v ts="$TIMESTAMP" '
+    NR>1 && $5=="menunggak" {
+        printf "[%s] %s | Kamar %s | Rp %s | menunggak\n", ts, $1, $2, $3
+    }
+    ' "$DATA_FILE" >> "$LOG_FILE"
+
+    exit 0
+fi
+```
+
+if statement untuk handler argumen ```--check-tagihan``` agar membuat file tagihan.log untuk penghuni menunggak
+
+
+```bash
+kelola_cron() {
+    while true; do
+        clear
+        echo "=============================================="
+        echo "       KELOLA CRON (PENGINGAT TAGIHAN)"
+        echo "=============================================="
+        echo "  1. Lihat jadwal aktif"
+        echo "  2. Daftarkan jadwal baru"
+        echo "  3. Hapus jadwal"
+        echo "  4. Kembali ke menu utama"
+        echo "=============================================="
+        echo -n "  Pilih [1-4] : "
+        read pilihan_cron
+```
+menu cron tersendiri
+
+
+```bash
+ case $pilihan_cron in
+            1)
+                jadwal_aktif=$(crontab -l 2>/dev/null | awk "/$CRON_TAG/")   # crontab -l: list semua cron, 2>/dev/null: buang error
+                if [ -z "$jadwal_aktif" ]; then
+                    echo -e "\n  [!] Tidak ada jadwal aktif."
+                else
+                    echo -e "\n  Jadwal aktif:"
+                    echo "  $jadwal_aktif"
+                fi
+                ;;
+```
+Melihat daftar jadwal aktif. jadwal_aktif akan mengambil nilai dari list dengan cara
+```(crontab -l 2>/dev/null | awk "/$CRON_TAG/")```
+- crontab -l = mengeluarkan list crontab
+- 2>/dev/null = membuang stderr/ buang error ke null. agar terminal lebih terlihat rapi
+- | awk "/$CRON_TAG/" = piping ke awk yang hanya akan membaca cron dengan tanda tag yang kita buat
+
+
+```bash
+2)
+                # input jam
+                while true; do
+                    echo -n "  Jam (00-23, default 07) : "
+                    read input_jam
+                    input_jam=${input_jam:-07}   # default 07 kalau kosong
+
+                    if ! [[ "$input_jam" =~ ^[0-9]{1,2}$ ]] || [ "$input_jam" -lt 0 ] || [ "$input_jam" -gt 23 ]; then
+                        echo "  [!] Jam harus antara 00-23. Coba lagi."
+                        continue
+                    fi
+                    break
+                done
+
+                # input menit
+                while true; do
+                    echo -n "  Menit (00-59, default 00) : "
+                    read input_menit
+                    input_menit=${input_menit:-00}   # default 00 kalau kosong
+
+                    if ! [[ "$input_menit" =~ ^[0-9]{1,2}$ ]] || [ "$input_menit" -lt 0 ] || [ "$input_menit" -gt 59 ]; then
+                        echo "  [!] Menit harus antara 00-59. Coba lagi."
+                        continue
+                    fi
+                    break
+                done
+
+                # rakit string cron
+                LOG_PATH="$(dirname "$SCRIPT_PATH")/log/tagihan.log"
+                CRON_JOB="$input_menit $input_jam * * * $SCRIPT_PATH --check-tagihan >> $LOG_PATH $CRON_TAG"
+
+                # hapus jadwal lama, overwrite baru
+                (crontab -l 2>/dev/null | awk "!/$CRON_TAG/"; echo "$CRON_JOB") | crontab -
+
+                echo -e "\n  [OK] Jadwal berhasil didaftarkan: setiap hari jam $input_jam:$input_menit."
+                ;;
+```
+Menginput waktu cron dari user input dengan syarat default jam 07.00 WIB.
