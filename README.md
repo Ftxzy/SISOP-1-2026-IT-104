@@ -188,4 +188,119 @@ yang akhirnya akan di transfer outputnya ke posisipusaka.txt
 
 ## Soal 3
 
+### Penjelasan
+
+Membuat CLI interaktif untuk pengurusan kos
+
+### Code
+
+```bash
+#!/bin/bash
+
+DATA_FILE="data/penghuni.csv"
+
+# buat CSV kalau belum ada
+if [ ! -f "$DATA_FILE" ]; then
+    echo "nama,kamar,harga_sewa,tanggal_masuk,status" > "$DATA_FILE"
+fi
+```
+membuat data file data/penghuni.csv. Jika belum ada maka akan dibuat.
+
+```bash
+tambah_penghuni() {
+    clear
+    echo "=============================================="
+    echo "       TAMBAH PENGHUNI BARU"
+    echo "=============================================="
+
+    # nama
+    while true; do
+        echo -n "Nama lengkap : "
+        read nama
+
+        if [ -z "$nama" ]; then   # -z: kosong?
+            echo "  [!] Nama tidak boleh kosong. Coba lagi."
+        else
+            break
+        fi
+    done
+
+    # kamar
+    while true; do
+        echo -n "Nomor kamar  : "
+        read kamar
+
+        if ! [[ "$kamar" =~ ^[0-9]+$ ]]; then   # =~ pencocokan regex, ^[0-9]+$ = hanya angka, dari awal sampai akhir
+            echo "  [!] Nomor kamar harus berupa angka. Coba lagi."
+            continue
+        fi
+
+        duplikat=$(awk -F',' -v k="$kamar" 'NR>1 && $2==k {print $1}' "$DATA_FILE")   # -v: kirim var bash ke awk
+        if [ -z "$duplikat" ]; then
+            break
+        fi
+        echo "  [!] Kamar $kamar sudah ditempati oleh: $duplikat. Masukkan nomor lain."
+        continue
+    done
+
+    # harga sewa
+    while true; do
+        echo -n "Harga sewa   : Rp "
+        read harga_sewa
+
+        if ! [[ "$harga_sewa" =~ ^[0-9]+$ ]] || [ "$harga_sewa" -le 0 ]; then
+            echo "  [!] Harga sewa harus angka positif. Coba lagi."
+            continue
+        fi
+
+        break
+    done
+
+    # tanggal masuk
+    today=$(date +%Y-%m-%d)   # tanggal hari ini dari sistem
+
+    while true; do
+        echo -n "Tanggal masuk (YYYY-MM-DD) : "
+        read tanggal_masuk
+
+        if ! [[ "$tanggal_masuk" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "  [!] Format tanggal salah. Gunakan YYYY-MM-DD. Coba lagi."
+            continue
+        fi
+
+        if ! date -d "$tanggal_masuk" &>/dev/null; then
+            echo "  [!] Tanggal tidak valid. Coba lagi."
+            continue
+        fi
+
+        if [[ "$tanggal_masuk" > "$today" ]]; then
+            echo "  [!] Tanggal masuk tidak boleh di masa depan (maks: $today). Coba lagi."
+            continue
+        fi
+
+        break
+    done
+
+    # status awal
+    while true; do
+        echo -n "Status awal [aktif/menunggak] : "
+        read status
+
+        if [ "$status" != "aktif" ] && [ "$status" != "menunggak" ]; then
+            echo "  [!] Status harus 'aktif' atau 'menunggak'. Coba lagi."
+            continue
+        fi
+
+        break
+    done
+
+    # simpan ke csv
+    echo "$nama,$kamar,$harga_sewa,$tanggal_masuk,$status" >> "$DATA_FILE"
+    echo -e "\n  [OK] Data penghuni '$nama' berhasil disimpan."
+}
+```
+Tambah penghuni baru. Menambahkan penghuni dengan input Nama, Nomor kamar, Harga sewa, Tanggal masuk (YYYY-MM-DD) dan status (aktif/menunggak)
+#### Notes:
+```bash if [ -z "$nama" ]```
+
 
