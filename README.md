@@ -6,3 +6,6 @@ Khalifa Suryadinarta 5027251104
 
 Penjelasan
 
+Langkah pertama download data file passenger.csv
+
+setelah 
