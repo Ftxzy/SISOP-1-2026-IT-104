@@ -302,7 +302,9 @@ tambah_penghuni() {
 Tambah penghuni baru. Menambahkan penghuni dengan input Nama, Nomor kamar, Harga sewa, Tanggal masuk (YYYY-MM-DD) dan status (aktif/menunggak)
 #### Notes:
 - ``` if [ -z "$nama" ] ``` artinya -z adalah jika nilai ini 0 = true
-- ```if ! [[ "$kamar" =~ ^[0-9]+$ ]];``` artinya =~ adalah regex match operator, mengetes apakah sisi kiri = sisi kanan regex, dan =~ hanya bisa dideklarasikan dalam ```[[]]``` double bracket. ```^[0-9]+$``` artinya merupakan pattern regex, ia mengambil string dari awal sampai akhir (awal ```^``` hingga ```$```) dengan logika mengambil semua angka 0-9 dengan berapapun digit dibelakangnya (+)
+- ```if ! [[ "$kamar" =~ ^[0-9]+$ ]];``` artinya =~ adalah regex match operator, mengetes apakah sisi kiri = sisi kanan regex, dan =~ hanya bisa dideklarasikan dalam ```[[]]``` double bracket. ```^[0-9]+$``` artinya merupakan pattern regex, ia mengambil string dari awal sampai akhir (awal ```^``` hingga ```$```) dengan logika mengambil semua angka 0-9 dengan berapapun digit dibelakangnya (```+```)
+- ``` duplikat=$(awk -F',' -v k="$kamar" 'NR>1 && $2==k {print $1}' "$DATA_FILE")``` artinya -v adalah sebuah operator untuk mentransfer variabel bash kedalam awk (```k="$kamar"```)
+- 
 
 
 
