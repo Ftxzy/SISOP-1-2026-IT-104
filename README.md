@@ -2,6 +2,7 @@
 
 Khalifa Suryadinarta 5027251104
 
-
-
 ## Soal 1
+
+Penjelasan
+
