@@ -670,13 +670,20 @@ done
 7. CRON
 <img width="646" height="270" alt="image" src="https://github.com/user-attachments/assets/4b111831-305d-4fd7-84fa-1394a033219c" />
 
-    Lihat Jadwal aktif
+
+Lihat Jadwal aktif
     <img width="1032" height="251" alt="image" src="https://github.com/user-attachments/assets/80e4e197-c271-4d46-bbcb-e9788c68400a" />
-    Daftar jadwal baru
+
+
+Daftar jadwal baru
     <img width="875" height="424" alt="image" src="https://github.com/user-attachments/assets/9db3269a-3758-41a4-ac23-b1462abc4a92" />
-    Hapus Jadwal
+
+
+Hapus Jadwal
     <img width="828" height="438" alt="image" src="https://github.com/user-attachments/assets/0da87bfe-aeaf-4fde-a3d7-227a9fd137fc" />
-    Tagihan Log
+
+
+Tagihan Log
     <img width="1005" height="387" alt="image" src="https://github.com/user-attachments/assets/8ab37fa4-0fe3-4b8f-b248-8bda7041de4f" />
 
 
