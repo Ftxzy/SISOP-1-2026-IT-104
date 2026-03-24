@@ -433,9 +433,6 @@ fi
 
 laporan_keuangan() {
     clear
-    echo "=============================================="
-    echo "       LAPORAN KEUANGAN"
-    echo "=============================================="
 
     # hitung total aktif dan menunggak
     awk -F',' '
@@ -445,7 +442,7 @@ laporan_keuangan() {
     }
     END {
         print "=============================================="
-        print "  LAPORAN KEUANGAN ASRAMA"
+        print "  LAPORAN KEUANGAN KOS"
         print "=============================================="
         print "  Total pemasukan (aktif)    : Rp " total_aktif
         print "  Total menunggak            : Rp " total_menunggak
@@ -565,4 +562,128 @@ Melihat daftar jadwal aktif. jadwal_aktif akan mengambil nilai dari list dengan 
                 echo -e "\n  [OK] Jadwal berhasil didaftarkan: setiap hari jam $input_jam:$input_menit."
                 ;;
 ```
-Menginput waktu cron dari user input dengan syarat default jam 07.00 WIB.
+Menginput waktu cron dari user input dengan syarat default jam 07.00 WIB. dengan format cron *(menit) *(jam) *(hari) *(bulan) *(weekday).
+Juga mampu overwrite dan menghapus cron sebelumnya yang ada, agar cron job hanya 1 dengan cara ```crontab -``` yang berarti baca dari stdin sebelumnya, dan gantikan semua yang ada disitu menjadi crontab yang baru ini
+
+
+```bash
+ 3)
+                if [ -z "$jadwal_aktif" ]; then
+                    jadwal_aktif=$(crontab -l 2>/dev/null | awk "/$CRON_TAG/")
+                fi
+                if [ -z "$jadwal_aktif" ]; then
+                    echo -e "\n  [!] Tidak ada jadwal aktif untuk dihapus."
+                else
+                    crontab -l 2>/dev/null | awk "!/$CRON_TAG/" | crontab -
+                    echo -e "\n  [OK] Jadwal berhasil dihapus."
+                fi
+                ;;
+```
+Opsi terakhir menghapus jadwal cron, dengan cara sebelumnya (```crontab - ```)
+
+
+```bash
+ 4)
+                break   # balik ke menu utama
+                ;;
+            *)
+                echo -e "\n  [!] Pilihan tidak valid."
+                ;;
+        esac
+
+        echo -e "\nTekan [Enter] untuk melanjutkan..."
+        read
+    done
+}
+```
+pilihan break dan opsi tidak valid
+
+#### Main menu
+```bash
+while true; do
+    clear
+    echo "=============================================="
+    echo "       SISTEM MANAJEMEN KOS"
+    echo "=============================================="
+    echo "  1. Tambah Penghuni Baru"
+    echo "  2. Hapus Penghuni"
+    echo "  3. Tampilkan Daftar Penghuni"
+    echo "  4. Update Status Penghuni"
+    echo "  5. Cetak Laporan Keuangan"
+    echo "  6. Kelola Cron (Pengingat Tagihan)"
+    echo "  7. Keluar"
+    echo "=============================================="
+    echo -n "  Pilih menu [1-7] : "
+    read pilihan
+
+    case $pilihan in
+        1) tambah_penghuni ;;
+        2) hapus_penghuni ;;
+        3) tampilkan_penghuni ;;
+        4) update_status ;;
+        5) laporan_keuangan ;;
+        6) kelola_cron ;;
+        7)
+            clear
+            echo "=============================================="
+            echo "  Terima kasih. Sampai jumpa!"
+            echo "=============================================="
+            exit 0
+            ;;
+        *)
+            echo -e "\n  [!] Pilihan tidak valid. Masukkan angka 1-7."
+            ;;
+    esac
+
+    echo -e "\nTekan [Enter] untuk kembali ke menu..."
+    read
+done
+```
+
+### Output
+1. Main Menu
+<img width="682" height="342" alt="image" src="https://github.com/user-attachments/assets/c682e9d2-4f32-4c96-974a-9c317364b2b9" />
+
+
+2. Tambah Penghuni Baru
+<img width="675" height="295" alt="image" src="https://github.com/user-attachments/assets/6af055cd-d587-4ced-b2c9-1ddd94d36c1d" />
+<img width="662" height="315" alt="image" src="https://github.com/user-attachments/assets/f77e752b-723e-442f-88cb-36fafce5191f" />
+
+3. Hapus penghuni
+<img width="975" height="317" alt="image" src="https://github.com/user-attachments/assets/2b0ef893-7d0f-4086-867c-606cfc148731" />
+<img width="907" height="321" alt="image" src="https://github.com/user-attachments/assets/75912ab1-8db1-4071-ab20-34ee7a6d9de7" />
+
+
+
+4. Tampilkan daftar penghuni
+<img width="880" height="289" alt="image" src="https://github.com/user-attachments/assets/a8a68301-b372-46fc-a508-ba0125c0651b" />
+
+5. Update status
+<img width="709" height="345" alt="image" src="https://github.com/user-attachments/assets/7fd21d27-a57e-4e86-8996-361833bf4500" />
+<img width="680" height="198" alt="image" src="https://github.com/user-attachments/assets/dd15bd63-958b-4a56-aae2-82eb92428b38" />
+
+6. Cetak laporan keuangan
+<img width="856" height="310" alt="image" src="https://github.com/user-attachments/assets/5e0f19c5-cdc2-4631-9cf2-f6a038db12f4" />
+<img width="810" height="334" alt="image" src="https://github.com/user-attachments/assets/686845c6-bc2f-47b8-9535-6918c3d44564" />
+
+
+7. CRON
+<img width="646" height="270" alt="image" src="https://github.com/user-attachments/assets/4b111831-305d-4fd7-84fa-1394a033219c" />
+
+    7.1 Lihat Jadwal aktif
+    <img width="1032" height="251" alt="image" src="https://github.com/user-attachments/assets/80e4e197-c271-4d46-bbcb-e9788c68400a" />
+    7.2 Daftar jadwal baru
+    <img width="875" height="424" alt="image" src="https://github.com/user-attachments/assets/9db3269a-3758-41a4-ac23-b1462abc4a92" />
+    7.3 Hapus Jadwal
+    <img width="828" height="438" alt="image" src="https://github.com/user-attachments/assets/0da87bfe-aeaf-4fde-a3d7-227a9fd137fc" />
+    7.4 Tagihan Log
+    <img width="1005" height="387" alt="image" src="https://github.com/user-attachments/assets/8ab37fa4-0fe3-4b8f-b248-8bda7041de4f" />
+
+
+
+
+
+
+
+
+
