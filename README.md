@@ -84,4 +84,15 @@ esac
 ```
 dan opsi selain a/b/c/d/e akan mengeluarkan echo seperti itu. esac untuk keluar dari case 
 
+### Output
+1. Unduh file data .csv
+<img width="1479" height="735" alt="image" src="https://github.com/user-attachments/assets/17b97d4f-d234-4399-bd7a-e7ec65556a05" />
+
+2. Output pilihan
+<img width="998" height="638" alt="image" src="https://github.com/user-attachments/assets/9055ef80-f0bd-4242-99b4-b42a7205c91b" />
+
+
+
 ## Soal 2
+
+### Penjelasan
