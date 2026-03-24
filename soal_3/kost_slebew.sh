@@ -312,11 +312,8 @@ kelola_cron() {
                     break
                 done
 
-                # buat dir log kalau belum ada
-                mkdir -p "$(dirname "$SCRIPT_PATH")/log"
-                LOG_PATH="$(dirname "$SCRIPT_PATH")/log/tagihan.log"
-
                 # rakit string cron
+                LOG_PATH="$(dirname "$SCRIPT_PATH")/log/tagihan.log"
                 CRON_JOB="$input_menit $input_jam * * * $SCRIPT_PATH --check-tagihan >> $LOG_PATH $CRON_TAG"
 
                 # hapus jadwal lama, overwrite baru
