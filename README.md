@@ -304,7 +304,48 @@ Tambah penghuni baru. Menambahkan penghuni dengan input Nama, Nomor kamar, Harga
 - ``` if [ -z "$nama" ] ``` artinya -z adalah jika nilai ini 0 = true
 - ```if ! [[ "$kamar" =~ ^[0-9]+$ ]];``` artinya =~ adalah regex match operator, mengetes apakah sisi kiri = sisi kanan regex, dan =~ hanya bisa dideklarasikan dalam ```[[]]``` double bracket. ```^[0-9]+$``` artinya merupakan pattern regex, ia mengambil string dari awal sampai akhir (awal ```^``` hingga ```$```) dengan logika mengambil semua angka 0-9 dengan berapapun digit dibelakangnya (```+```)
 - ``` duplikat=$(awk -F',' -v k="$kamar" 'NR>1 && $2==k {print $1}' "$DATA_FILE")``` artinya -v adalah sebuah operator untuk mentransfer variabel bash kedalam awk (```k="$kamar"```)
-- 
+- ```today=$(date +%Y-%m-%d)``` untuk mendapatkan nilai tanggal hari ini di dalam sistem menggunakan format specifier %Y-%m-%d karena yang diminta YYYY-MM-DD
+- ```if ! date -d "$tanggal_masuk" &>/dev/null;``` untuk menghapus error dengan memasukkan tanggal yang salah
+
+
+
+```bash
+HISTORY_FILE="sampah/history_hapus.csv"
+
+# buat folder sampah kalau belum ada
+if [ ! -f "$HISTORY_FILE" ]; then
+    mkdir -p sampah
+    echo "nama,kamar,harga_sewa,tanggal_masuk,status,tanggal_hapus" > "$HISTORY_FILE"
+fi
+
+hapus_penghuni() {
+    clear
+    echo "=============================================="
+    echo "       HAPUS PENGHUNI"
+    echo "=============================================="
+
+    echo -n "Nama penghuni yang ingin dihapus : "
+    read nama_hapus
+
+    # cari baris, skip header
+    hasil=$(awk -F',' -v n="$nama_hapus" 'NR>1 && $1==n' "$DATA_FILE")
+
+    if [ -z "$hasil" ]; then
+        echo -e "\n  [!] Penghuni '$nama_hapus' tidak ditemukan."
+        return
+    fi
+
+    # pindah ke history, tambah tgl hapus
+    today=$(date +%Y-%m-%d)
+    echo "$hasil" | awk -F',' -v tgl="$today" '{print $0","tgl}' >> "$HISTORY_FILE"
+
+    # tulis ulang CSV, buang baris terhapus
+    awk -F',' -v n="$nama_hapus" 'NR==1 || $1!=n' "$DATA_FILE" > tmpfile.csv && mv tmpfile.csv "$DATA_FILE"
+
+    echo -e "\n  [OK] Data penghuni '$nama_hapus' berhasil dihapus dan dipindahkan ke history."
+}
+```
+Hapus penghuni. menghapus penghuni dengan input nama, kemudian ditaruh ke file ```sampah/history_hapus.csv``` dengan tambahan tanggal dihapusnya dengan metode memindahkan penghuni yang akan dihapus ke history file terlebih dahulu. setelah itu, membuat ulang file data csv dengan pengecualian nama yang dihapus menggunakan metode rewrite ke file temporary dan overwrite yang di file temporary tersebut balik ke file utama data_file.
 
 
 
