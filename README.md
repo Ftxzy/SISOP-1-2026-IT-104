@@ -142,4 +142,31 @@ logika yang sama untuk variabel lainnya, akhirnya akan di print dalam urutan id,
 
 echo "Selesai transfer woiiiighhhhhhhhhhhh"
 ```
-output dari awk tersebut di transfer dari nilai %input ke %output
+output dari awk tersebut di transfer dari nilai $input ke $output (direct)
+
+### Penjelasan 2
+diminta pada soal untuk menemukan titik tengah diagonal dengan rumus
+<img width="269" height="82" alt="image" src="https://github.com/user-attachments/assets/3f04ae1e-48af-4579-b61f-d45635702f4a" />
+dalam file nemupusaka.sh dan di output >> posisipusaka.txt (lat,lon)
+
+### Code 2
+```bash
+#!/bin/bash
+
+INPUT="titik-penting.txt"
+OUTPUT="posisipusaka.txt"
+
+awk -F',' '
+NR==2 { x1=$3; y1=$4 }
+NR==4 { x2=$3; y2=$4 }
+END {
+    mid_lat = (x1 + x2) / 2
+    mid_lon = (y1 + y2) / 2
+    print"(" mid_lat "," mid_lon")"
+}' "$INPUT" > "$OUTPUT"
+
+echo "Berhasiiiiil"
+```
+dengan 
+
+
