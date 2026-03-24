@@ -642,48 +642,35 @@ done
 
 ### Output
 1. Main Menu
-<img width="682" height="342" alt="image" src="https://github.com/user-attachments/assets/c682e9d2-4f32-4c96-974a-9c317364b2b9" />
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/c682e9d2-4f32-4c96-974a-9c317364b2b9" />
 
 2. Tambah Penghuni Baru
-<img width="675" height="295" alt="image" src="https://github.com/user-attachments/assets/6af055cd-d587-4ced-b2c9-1ddd94d36c1d" />
-<img width="662" height="315" alt="image" src="https://github.com/user-attachments/assets/f77e752b-723e-442f-88cb-36fafce5191f" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/6af055cd-d587-4ced-b2c9-1ddd94d36c1d" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/f77e752b-723e-442f-88cb-36fafce5191f" />
 
 3. Hapus penghuni
-<img width="975" height="317" alt="image" src="https://github.com/user-attachments/assets/2b0ef893-7d0f-4086-867c-606cfc148731" />
-<img width="907" height="321" alt="image" src="https://github.com/user-attachments/assets/75912ab1-8db1-4071-ab20-34ee7a6d9de7" />
-
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/2b0ef893-7d0f-4086-867c-606cfc148731" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/75912ab1-8db1-4071-ab20-34ee7a6d9de7" />
 
 4. Tampilkan daftar penghuni
-<img width="880" height="289" alt="image" src="https://github.com/user-attachments/assets/a8a68301-b372-46fc-a508-ba0125c0651b" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/a8a68301-b372-46fc-a508-ba0125c0651b" />
 
 5. Update status
-<img width="709" height="345" alt="image" src="https://github.com/user-attachments/assets/7fd21d27-a57e-4e86-8996-361833bf4500" />
-<img width="680" height="198" alt="image" src="https://github.com/user-attachments/assets/dd15bd63-958b-4a56-aae2-82eb92428b38" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/7fd21d27-a57e-4e86-8996-361833bf4500" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/dd15bd63-958b-4a56-aae2-82eb92428b38" />
 
 6. Cetak laporan keuangan
-<img width="856" height="310" alt="image" src="https://github.com/user-attachments/assets/5e0f19c5-cdc2-4631-9cf2-f6a038db12f4" />
-<img width="810" height="334" alt="image" src="https://github.com/user-attachments/assets/686845c6-bc2f-47b8-9535-6918c3d44564" />
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/5e0f19c5-cdc2-4631-9cf2-f6a038db12f4" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/686845c6-bc2f-47b8-9535-6918c3d44564" />
 
 7. CRON
-<img width="646" height="270" alt="image" src="https://github.com/user-attachments/assets/4b111831-305d-4fd7-84fa-1394a033219c" />
-
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/4b111831-305d-4fd7-84fa-1394a033219c" />
 Lihat Jadwal aktif
-
-<img width="1032" height="251" alt="image" src="https://github.com/user-attachments/assets/80e4e197-c271-4d46-bbcb-e9788c68400a" />
-
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/80e4e197-c271-4d46-bbcb-e9788c68400a" />
 Daftar jadwal baru
-
-<img width="875" height="424" alt="image" src="https://github.com/user-attachments/assets/9db3269a-3758-41a4-ac23-b1462abc4a92" />
-
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/9db3269a-3758-41a4-ac23-b1462abc4a92" />
 Hapus Jadwal
-
-<img width="828" height="438" alt="image" src="https://github.com/user-attachments/assets/0da87bfe-aeaf-4fde-a3d7-227a9fd137fc" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/0da87bfe-aeaf-4fde-a3d7-227a9fd137fc" />
 
 
 Tagihan Log
