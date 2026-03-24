@@ -4,11 +4,11 @@ Khalifa Suryadinarta 5027251104
 
 ## Soal 1
 
-Penjelasan
+### Penjelasan
 
 Langkah pertama download data file passenger.csv
 
-### code
+### Code
 
 ```bash
 echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
@@ -83,3 +83,5 @@ opsi e menghitung total business class yang berada di kereta dengan $3=="Busines
 esac
 ```
 dan opsi selain a/b/c/d/e akan mengeluarkan echo seperti itu. esac untuk keluar dari case 
+
+## Soal 2
