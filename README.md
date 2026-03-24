@@ -146,7 +146,9 @@ output dari awk tersebut di transfer dari nilai $input ke $output (direct)
 
 ### Penjelasan 2
 diminta pada soal untuk menemukan titik tengah diagonal dengan rumus
+
 <img width="269" height="82" alt="image" src="https://github.com/user-attachments/assets/3f04ae1e-48af-4579-b61f-d45635702f4a" />
+
 dalam file nemupusaka.sh dan di output >> posisipusaka.txt (lat,lon)
 
 ### Code 2
