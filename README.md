@@ -8,7 +8,7 @@ Penjelasan
 
 Langkah pertama download data file passenger.csv
 
-setelah itu opsi a memastikan berapa penumpang kereta total
+### code
 
 ```bash
 echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
@@ -24,8 +24,7 @@ case "$answer" in
         ' passenger.csv
         ;;
 ```
-
-awk -F merupakan field seperator. Membaca bagaimana collumn terbagi. NR>1 karena kita tidak membaca header dan akhirnya print total jumlah seluruh penumpang dalam file passenger.csv
+opsi a memastikan berapa penumpang kereta total. awk -F merupakan field seperator. Membaca bagaimana collumn terbagi. NR>1 karena kita tidak membaca header dan akhirnya print total jumlah seluruh penumpang dalam file passenger.csv
  
 ```bash
     "b")
