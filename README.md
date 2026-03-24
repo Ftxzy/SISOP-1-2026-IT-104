@@ -27,3 +27,16 @@ case "$answer" in
 
 awk -F merupakan field seperator. Membaca bagaimana collumn terbagi. NR>1 karena kita tidak membaca header dan akhirnya print total jumlah seluruh penumpang dalam file passenger.csv
  
+```bash
+    "b")
+        awk -F',' '
+        NR>1 { gerbong[$4] = 1 } #1 for initalizing nilaiaiwiadjaidwjia
+        END  {
+            for (g in gerbong) count++ #for accessing the key
+            print "Total gerbong: " count
+        }
+        ' passenger.csv
+        ;;
+```
+
+opsi b mengetahui jumlah gerbong ber operasi ada berapa. gerbong berada di kolum 4, logikanya jika kolum 4 ada nilainya, count akan bertambah hingga total gerbong menjadi 5
