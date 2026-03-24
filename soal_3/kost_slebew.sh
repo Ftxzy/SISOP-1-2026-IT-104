@@ -216,9 +216,6 @@ fi
 
 laporan_keuangan() {
     clear
-    echo "=============================================="
-    echo "       LAPORAN KEUANGAN"
-    echo "=============================================="
 
     # hitung total aktif dan menunggak
     awk -F',' '
@@ -228,7 +225,7 @@ laporan_keuangan() {
     }
     END {
         print "=============================================="
-        print "  LAPORAN KEUANGAN ASRAMA"
+        print "  LAPORAN KEUANGAN KOS"
         print "=============================================="
         print "  Total pemasukan (aktif)    : Rp " total_aktif
         print "  Total menunggak            : Rp " total_menunggak
@@ -350,7 +347,7 @@ kelola_cron() {
 while true; do
     clear
     echo "=============================================="
-    echo "       SISTEM MANAJEMEN ASRAMA"
+    echo "       SISTEM MANAJEMEN KOS"
     echo "=============================================="
     echo "  1. Tambah Penghuni Baru"
     echo "  2. Hapus Penghuni"
