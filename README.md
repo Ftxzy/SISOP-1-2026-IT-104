@@ -169,6 +169,23 @@ END {
 
 echo "Berhasiiiiil"
 ```
-dengan 
+dengan rumus yang didapat, kita dapat hanya membaca line 2, dan 4 karena id 1 dan 2 mempunyai lat sama, sedangkan 3 4, lon sama dan bisa mendeklarasikan id 1 dan dua mempunyai x dan y berbeda
+yang akhirnya akan di transfer outputnya ke posisipusaka.txt
+
+### Output
+1. unduh file pdf
+<img width="1240" height="873" alt="image" src="https://github.com/user-attachments/assets/c3100207-3211-4c86-ad81-6df90c3df619" />
+
+2. setelah concatenate file pdf mendapatkan link gsxtrack.json di github
+<img width="1912" height="905" alt="image" src="https://github.com/user-attachments/assets/dc1f8276-25e6-4b5e-91b6-e65745fbf6d7" />
+
+3. parserkoordinat.sh
+<img width="1462" height="749" alt="image" src="https://github.com/user-attachments/assets/a049ce75-df23-4e97-b6e7-c924947f3d50" />
+
+4. nemupusaka.sh
+<img width="1440" height="682" alt="image" src="https://github.com/user-attachments/assets/992d8c6e-3051-47e8-960a-939f53f263dd" />
+
+
+## Soal 3
 
 
