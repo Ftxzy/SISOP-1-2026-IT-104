@@ -8,4 +8,18 @@ Penjelasan
 
 Langkah pertama download data file passenger.csv
 
-setelah 
+setelah itu memastikan berapa penumpang kereta
+echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
+
+read -p "Pilih pilihan a/b/c/d/e: " answer
+
+case "$answer" in
+
+    "a")
+        awk -F',' '
+        NR>1 { total++ }
+        END  { print "Total seluruh penumpang: " total }
+        ' passenger.csv
+        ;;
+
+ 
