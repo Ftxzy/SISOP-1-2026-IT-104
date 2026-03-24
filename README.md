@@ -8,8 +8,9 @@ Penjelasan
 
 Langkah pertama download data file passenger.csv
 
-setelah itu memastikan berapa penumpang kereta
-''' echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
+setelah itu memastikan berapa penumpang kereta 
+
+``` echo "=== KERETA HOMOOOOO HOMOOOOOOOOOO GAYYYYYYYYYYY ==="
 
 read -p "Pilih pilihan a/b/c/d/e: " answer
 
@@ -21,5 +22,5 @@ case "$answer" in
         END  { print "Total seluruh penumpang: " total }
         ' passenger.csv
         ;;
-'''
+```
  
